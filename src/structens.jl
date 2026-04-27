@@ -23,7 +23,7 @@ function st_eigen(Sxx::Array{T, 3}, Sxy::Array{T, 3},
         S = @SMatrix [ Sxx[ix, iy, iz] 0        0;
                        Sxy[ix, iy, iz] Syy[ix, iy, iz] 0;
                        Sxz[ix, iy, iz] Syz[ix, iy, iz] Szz[ix, iy, iz] ]
-        eig = eigen(Symmetric(S, :L))
+        eig = eigen(Symmetric(S, :L), sortby = λ -> -abs(λ))
         eigvec[ix, iy, iz, :, :] .= eig.vectors
         eigval[ix, iy, iz, :] .= eig.values
       end
